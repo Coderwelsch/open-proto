@@ -1,0 +1,17 @@
+.toolbar {
+	width: 100vw;
+	height: 3rem;
+
+	margin: 0;
+	padding: 0;
+	list-style: none;
+
+	display: flex;
+	justify-content: center; // left and right
+	align-items: center; // top and bottom
+}
+
+.toolActive {
+	color: white;
+	background: blue;
+}

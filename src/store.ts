@@ -1,15 +1,20 @@
-import { combineReducers, createStore } from 'redux'
-import { devToolsEnhancer } from 'redux-devtools-extension'
-import { CounterReducer } from './features/counter'
+import { combineReducers, createStore } from "redux";
+import { devToolsEnhancer } from "redux-devtools-extension";
+
+import { CanvasToolsReducer } from "./features/canvas-tools";
+import { CanvasElementsReducer } from "./features/canvas-elements";
+
 
 /* Create root reducer, containing all features of the application */
 const rootReducer = combineReducers({
-  count: CounterReducer,
-})
+	canvasTools: CanvasToolsReducer,
+	canvasElements: CanvasElementsReducer
+});
 
 const store = createStore(
-  rootReducer,
-  /* preloadedState, */ devToolsEnhancer({})
-)
+	rootReducer,
+	// preloadedState,
+	devToolsEnhancer({}),
+);
 
-export default store
+export default store;
