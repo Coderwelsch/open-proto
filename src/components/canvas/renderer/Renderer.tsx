@@ -3,6 +3,7 @@ import CSS from "csstype";
 
 import { CanvasElementType } from "../../../features/canvas-elements/types";
 import Styles from "./Renderer.module.scss";
+import { cn } from "../../../helper";
 
 
 interface RendererProps {
@@ -33,7 +34,7 @@ const Renderer: React.FC<RendererProps> = ({ elements }) => {
 				<div
 					key={element.id}
 					id={element.id}
-					className={ Styles.element }
+					className={ cn(Styles.element, element.selected && Styles.isSelected) }
 					style={ getStylesForElement(element) }>
 				</div>,
 			) }
