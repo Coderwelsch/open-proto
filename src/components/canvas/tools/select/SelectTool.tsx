@@ -34,7 +34,7 @@ const SelectTool: React.FC<SelectToolProps> = ({
 	...props
 }) => {
 	const dispatch = useDispatch();
-	const elements = useSelector(selectors.getElements);
+	// const elements = useSelector(selectors.getElements);
 	const selectedElements = useSelector(selectors.getSelectedElements);
 
 	// states
@@ -48,8 +48,6 @@ const SelectTool: React.FC<SelectToolProps> = ({
 			for (let i = 0; i < selectedCopy.length; i++) {
 				const selected = selectedCopy[i];
 				const offset = oldOffsets[i];
-
-				// console.log(mousePosition.y,);
 
 				selected.position.x = mousePosition.x - offset.x;
 				selected.position.y = mousePosition.y - offset.y;
@@ -65,6 +63,9 @@ const SelectTool: React.FC<SelectToolProps> = ({
 	};
 
 	const handleMouseUp = (event:React.SyntheticEvent) => {
+		// reset offsets
+		oldOffsets = [];
+
 		setMouseDown(false);
 		onMouseUp && onMouseUp(event);
 	};
