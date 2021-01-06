@@ -1,4 +1,4 @@
-import React from "react";
+import React, { PropsWithChildren } from "react";
 import CSS from "csstype";
 
 import { CanvasElementType } from "../../../features/canvas-elements/types";
@@ -10,6 +10,14 @@ interface RendererProps {
 	elements: CanvasElementType[]
 }
 
+function optimizeCssForRender (cssProps: CSS.Properties) {
+	return {
+		...cssProps,
+		left: undefined,
+		top: undefined,
+		transform: `translate(${ cssProps.left }, ${ cssProps.top })`
+	}
+}
 
 function getStylesForElement(element: CanvasElementType): CSS.Properties {
 	return {
@@ -23,22 +31,28 @@ function getStylesForElement(element: CanvasElementType): CSS.Properties {
 	};
 }
 
-const Renderer: React.FC<RendererProps> = ({ elements }) => {
+const Renderer: any = ({ elements }:PropsWithChildren<RendererProps>) => {
 	if (!elements || !elements.length) {
 		return null;
 	}
 
+	return elements.map(renderElement);
+};
+
+const renderElement = (element: CanvasElementType) => {
+	const optimizedPosition = (
+		optimizeCssForRender(
+			getStylesForElement(element)
+		)
+	);
+
 	return (
-		<>
-			{ elements.map((element: CanvasElementType) =>
-				<div
-					key={element.id}
-					id={element.id}
-					className={ cn(Styles.element, element.selected && Styles.isSelected) }
-					style={ getStylesForElement(element) }>
-				</div>,
-			) }
-		</>
+		<div
+			key={element.id}
+			id={element.id}
+			className={ cn(Styles.element, element.selected && Styles.isSelected) }
+			style={ optimizedPosition }>
+		</div>
 	)
 };
 
